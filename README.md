@@ -1,4 +1,4 @@
-# Fastify API Template
+# Loki CA
 
 A template for an API using Fastify. Written in TypeScript.
 
