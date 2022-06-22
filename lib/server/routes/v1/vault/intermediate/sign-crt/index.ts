@@ -20,7 +20,7 @@ export default function interSignRoute(fastify: FastifyInstance, _: {}, done: an
                 ojectWithCert,
                 csr: pkiCrt
             });
-            await fs.writeFile(homedirc + "/intermediate.cert.pem", data.data.data.certificate)
+            await fs.writeFile(homedirc + "/intermediate.cert.pem", data.data.certificate)
             if (!data) return reply.badRequest('somthing wrong happen')
 
             return reply.send({ message: 'success', data })

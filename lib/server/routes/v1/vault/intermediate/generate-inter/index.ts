@@ -12,7 +12,7 @@ export default function interGenerateRoute(fastify: FastifyInstance, _: {}, done
             const { body } = request;
             const data = await vault.postCall(fastify, vault.vaultUrls.interGenerateCRT, body);
             if (!data) return reply.badRequest('somthing wrong happended')
-            await fs.writeFile(homedirc + "/pki_intermediate.crt", data.data.data.csr)
+            await fs.writeFile(homedirc + "/pki_intermediate.crt", data.data.csr)
 
             return reply.send({ message: 'success', data })
 
