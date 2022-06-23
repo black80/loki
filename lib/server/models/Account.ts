@@ -5,7 +5,7 @@ export default class Account extends BaseModel {
 	id!: string;
 	email!: string;
 	passwordHash!: string;
-	status!: string;
+	status!: 'active' | 'inactive' | 'banned';
 	isVerified!: string;
 	isDeleted!: string;
 	createdAt!: string;
@@ -23,7 +23,7 @@ export default class Account extends BaseModel {
 				id: { type: 'string' },
 				email: { type: 'string' },
 				passwordHash: { type: 'string' },
-				status: { type: 'boolean' },
+				status: { type: 'boolean', enum: ['active', 'inactive', 'banned'] },
 				isVerified: { type: 'boolean' },
 				isDeleted: { type: 'boolean' },
 				updatedAt: { type: 'string', format: 'date-time' },

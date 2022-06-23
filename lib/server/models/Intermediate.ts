@@ -17,6 +17,7 @@ export default class Intermediate extends BaseModel {
 	updatedAt!: string;
 	deletedAt!: string;
 	isRevoked!: boolean;
+	isDeleted!: boolean;
 
 	static override get tableName(): string {
 		return 'IntermediateCertificate';
@@ -37,6 +38,7 @@ export default class Intermediate extends BaseModel {
 				expiration: { type: 'integer' },
 				issuingCa: { type: 'string' },
 				isRevoked: { type: 'boolean', default: false },
+				isDeleted: { type: 'boolean', default: false },
 				updatedAt: { type: 'string', format: 'date-time' },
 				createdAt: { type: 'string', format: 'date-time' },
 				deletedAt: { type: 'string', format: 'date-time' },
