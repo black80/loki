@@ -13,7 +13,7 @@ export default async function registerGenerateRoute(
 		url: '/generate',
 		handler: async (request, reply) => {
 			const { body } = request;
-			const data = await vault.postCall(
+			const data = await fastify.vault.postCall(
 				fastify,
 				vault.vaultUrls.interGenerateCRT,
 				body,

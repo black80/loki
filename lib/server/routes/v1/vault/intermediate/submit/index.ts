@@ -18,7 +18,7 @@ export default async function registerSubmitRoute(
 				'utf-8',
 			);
 			let ojectWithCert = { certificate: pkiCrt };
-			const data = await vault.postCall(
+			const data = await fastify.vault.postCall(
 				fastify,
 				vault.vaultUrls.interSubmitCRT,
 				ojectWithCert,

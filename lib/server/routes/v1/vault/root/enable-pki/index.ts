@@ -11,7 +11,7 @@ export default async function registerEnablePKIRoutes(
 		url: '/enable',
 		handler: async (request, reply) => {
 			const { body } = request;
-			const data = await vault.postCall(
+			const data = await fastify.vault.postCall(
 				fastify,
 				vault.vaultUrls.rootEnablePKI,
 				body,

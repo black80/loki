@@ -10,7 +10,7 @@ export default async function registerTunePKIRoute(
 		url: '/tune',
 		handler: async (request, reply) => {
 			const { body } = request;
-			const data = await vault.postCall(
+			const data = await fastify.vault.postCall(
 				fastify,
 				vault.vaultUrls.interTunePKI,
 				body,

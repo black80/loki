@@ -23,7 +23,7 @@ export default async function registerSignRoute(
 					...body,
 					csr: pkiCrt,
 				};
-			const data = await vault.postCall(
+			const data = await fastify.vault.postCall(
 				fastify,
 				vault.vaultUrls.interSignWithCA,
 				{

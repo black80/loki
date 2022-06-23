@@ -10,7 +10,7 @@ export default async function registerConfigureCARoute(
 		url: '/configure',
 		handler: async (request, reply) => {
 			const { body } = request;
-			const configuredCa = await vault.postCall(
+			const configuredCa = await fastify.vault.postCall(
 				fastify,
 				vault.vaultUrls.rootConfigureCA,
 				body,

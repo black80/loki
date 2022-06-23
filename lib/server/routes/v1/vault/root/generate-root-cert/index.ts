@@ -10,7 +10,7 @@ export default async function registerGenerateRootCertRoute(
 		url: '/generate',
 		handler: async (request, reply) => {
 			const { body } = request;
-			const rootCert = await vault.postCall(
+			const rootCert = await fastify.vault.postCall(
 				fastify,
 				vault.vaultUrls.rootGenerateCA,
 				body,

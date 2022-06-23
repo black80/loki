@@ -3,6 +3,7 @@ import { Redis } from 'ioredis';
 import { Knex } from 'knex';
 import { models } from '../lib/server/models';
 import { vaultManager } from '../lib/server/vault';
+import { getCall, postCall, VAULT_URIS } from '../lib/server/plugins/vault';
 
 type ENV = 'development' | 'staging' | 'testing' | 'production';
 
@@ -33,6 +34,10 @@ declare module 'fastify' {
 		models: typeof models;
 		knex: Knex<any, unknown[]>;
 		axios: AxiosInstance;
-		vault: () => Promise<AxiosResponse<any, any>>;
+		vault: {
+			getCall: typeof getCall;
+			postCall: typeof postCall;
+			uris: VAULT_URIS;
+		};
 	}
 }

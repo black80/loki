@@ -17,7 +17,7 @@ export default async function registerGenerateCertificateRoute(
 		handler: async (request, reply) => {
 			const { commonName, ttl, userId } = request.body;
 			const { Certificate } = fastify.models;
-			const data = (await vault.postCall(
+			const data = (await fastify.vault.postCall(
 				fastify,
 				vault.vaultUrls.certificateGenerationUrl,
 				{ common_name: commonName, ttl },
