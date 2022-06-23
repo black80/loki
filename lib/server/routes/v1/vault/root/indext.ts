@@ -1,15 +1,15 @@
 import { FastifyInstance } from 'fastify';
-import configureCARoute from './configure-CA';
-import enablePKIRoutes from './enable-pki';
-import generateRootCertRoute from './generate-root-cert';
-import tunePKIRoutes from './tune-pki';
+import registerConfigureCARoute from './configure-CA';
+import registerEnablePKIRoutes from './enable-pki';
+import registerGenerateRootCertRoute from './generate-root-cert';
+import registerTunePKIRoutes from './tune-pki';
 
-export default async function RegisterRootCRTRoutes(
+export default async function registerRootCertificateRoutes(
 	fastify: FastifyInstance,
 	_: {},
 ) {
-	await fastify.register(enablePKIRoutes);
-	await fastify.register(tunePKIRoutes);
-	await fastify.register(generateRootCertRoute);
-	await fastify.register(configureCARoute);
+	await fastify.register(registerEnablePKIRoutes);
+	await fastify.register(registerTunePKIRoutes);
+	await fastify.register(registerGenerateRootCertRoute);
+	await fastify.register(registerConfigureCARoute);
 }

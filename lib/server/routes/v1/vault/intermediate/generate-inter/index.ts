@@ -4,14 +4,13 @@ import { homedir } from 'os';
 import { vault } from '../../../../../vault';
 const homedirc = homedir();
 
-export default function interGenerateRoute(
+export default async function registerGenerateRoute(
 	fastify: FastifyInstance,
 	_: {},
-	done: any,
 ) {
 	fastify.route({
 		method: 'POST',
-		url: '/inter/generate',
+		url: '/generate',
 		handler: async (request, reply) => {
 			const { body } = request;
 			const data = await vault.postCall(
@@ -25,5 +24,4 @@ export default function interGenerateRoute(
 			return reply.send({ message: 'success', data });
 		},
 	});
-	done();
 }

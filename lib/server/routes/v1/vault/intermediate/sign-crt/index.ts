@@ -4,14 +4,13 @@ import fs from 'fs/promises';
 import { homedir } from 'os';
 const homedirc = homedir();
 
-export default function interSignRoute(
+export default async function registerSignRoute(
 	fastify: FastifyInstance,
 	_: {},
-	done: any,
 ) {
 	fastify.route({
 		method: 'POST',
-		url: '/inter/sign',
+		url: '/sign',
 		handler: async (request, reply) => {
 			const { body } = request;
 			const pkiCrt = await fs.readFile(
@@ -41,5 +40,4 @@ export default function interSignRoute(
 			return reply.send({ message: 'success', data });
 		},
 	});
-	done();
 }

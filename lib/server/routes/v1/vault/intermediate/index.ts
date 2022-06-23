@@ -1,17 +1,17 @@
 import { FastifyInstance } from 'fastify';
-import interEnablePKIRoute from './enable-pki';
-import interGenerateRoute from './generate-inter';
-import interSignRoute from './sign-crt';
-import interSubmitRoute from './submit';
-import interTunePKIRoute from './tune-pki';
+import registerEnablePKIRoute from './enable-pki';
+import registerGenerateRoute from './generate-inter';
+import registerSignRoute from './sign-crt';
+import registerSubmitRoute from './submit';
+import registerTunePKIRoute from './tune-pki';
 
-export default async function RegisterInterCRTRoutes(
+export default async function registerIntermediateCertificateRoutes(
 	fastify: FastifyInstance,
 	_: {},
 ) {
-	await fastify.register(interEnablePKIRoute);
-	await fastify.register(interTunePKIRoute);
-	await fastify.register(interGenerateRoute);
-	await fastify.register(interSignRoute);
-	await fastify.register(interSubmitRoute);
+	await fastify.register(registerEnablePKIRoute);
+	await fastify.register(registerTunePKIRoute);
+	await fastify.register(registerGenerateRoute);
+	await fastify.register(registerSignRoute);
+	await fastify.register(registerSubmitRoute);
 }

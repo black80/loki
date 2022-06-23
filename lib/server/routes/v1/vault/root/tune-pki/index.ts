@@ -1,14 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { vault } from '../../../../../vault';
 
-export default function tunePKIRoutes(
+export default async function registerTunePKIRoutes(
 	fastify: FastifyInstance,
 	_: {},
-	done: any,
 ) {
 	fastify.route({
 		method: 'POST',
-		url: '/root/tune',
+		url: '/tune',
 		handler: async (request, reply) => {
 			const { body } = request;
 			const data = await vault.postCall(
@@ -21,5 +20,4 @@ export default function tunePKIRoutes(
 			return reply.status(200).send({ message: 'success', data });
 		},
 	});
-	done();
 }

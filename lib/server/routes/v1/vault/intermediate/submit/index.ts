@@ -4,14 +4,13 @@ import fs from 'fs/promises';
 import { homedir } from 'os';
 const homedirc = homedir();
 
-export default function interSubmitRoute(
+export default async function registerSubmitRoute(
 	fastify: FastifyInstance,
 	_: {},
-	done: any,
 ) {
 	fastify.route({
 		method: 'POST',
-		url: '/inter/submit',
+		url: '/submit',
 		handler: async (_, reply) => {
 			//const { body } = request;
 			const pkiCrt = await fs.readFile(
@@ -29,5 +28,4 @@ export default function interSubmitRoute(
 			return reply.send({ message: 'success', data });
 		},
 	});
-	done();
 }

@@ -1,14 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { vault } from '../../../../../vault';
 
-export default function generateRootCertRoute(
+export default async function registerGenerateRootCertRoute(
 	fastify: FastifyInstance,
 	_: {},
-	done: any,
 ) {
 	fastify.route({
 		method: 'POST',
-		url: '/root/generate',
+		url: '/generate',
 		handler: async (request, reply) => {
 			const { body } = request;
 			const rootCert = await vault.postCall(
@@ -21,5 +20,4 @@ export default function generateRootCertRoute(
 			return reply.status(200).send({ message: 'success', data: rootCert });
 		},
 	});
-	done();
 }

@@ -1,9 +1,9 @@
 import { FastifyInstance } from 'fastify';
-import VaultRoleRoute from './register';
+import registerCreateVaultRoleRoute from './register';
 
-export default async function RegisterRolesRoutes(
+export default async function registerRolesRoutes(
 	fastify: FastifyInstance,
 	_: {},
 ) {
-	await fastify.register(VaultRoleRoute);
+	await fastify.register(registerCreateVaultRoleRoute);
 }

@@ -1,14 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { vault } from '../../../../../vault';
 
-export default function configureCARoute(
+export default async function registerConfigureCARoute(
 	fastify: FastifyInstance,
 	_: {},
-	done: any,
 ) {
 	fastify.route({
 		method: 'POST',
-		url: '/root/configure',
+		url: '/configure',
 		handler: async (request, reply) => {
 			const { body } = request;
 			const configuredCa = await vault.postCall(
@@ -21,5 +20,4 @@ export default function configureCARoute(
 			return reply.send({ message: 'success' });
 		},
 	});
-	done();
 }

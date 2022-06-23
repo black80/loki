@@ -1,6 +1,8 @@
 import { FastifyInstance } from 'fastify';
-import generateCertificateRoute from './generate';
+import registerGenerateCertificateRoute from './generate';
 
-export default async function certificateRoutes(fastify: FastifyInstance) {
-	await fastify.register(generateCertificateRoute);
+export default async function registerCertificateRoutes(
+	fastify: FastifyInstance,
+) {
+	await fastify.register(registerGenerateCertificateRoute);
 }

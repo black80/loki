@@ -1,14 +1,14 @@
 import { FastifyInstance } from 'fastify';
 import { vault } from '../../../../../vault';
 
-export default function enablePKIRoutes(
+export default async function registerEnablePKIRoutes(
 	fastify: FastifyInstance,
 	_: {},
 	done: any,
 ) {
 	fastify.route({
 		method: 'POST',
-		url: '/root/enable',
+		url: '/enable',
 		handler: async (request, reply) => {
 			const { body } = request;
 			const data = await vault.postCall(
@@ -21,5 +21,4 @@ export default function enablePKIRoutes(
 			return reply.send({ message: 'success', data });
 		},
 	});
-	done();
 }

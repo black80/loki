@@ -1,14 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { vault } from '../../../../../vault';
 
-export default function VaultRoleRoute(
+export default async function registerCreateVaultRoleRoute(
 	fastify: FastifyInstance,
 	_: {},
-	done: any,
 ) {
 	fastify.route({
 		method: 'POST',
-		url: '/role',
+		url: '/',
 		handler: async (request, reply) => {
 			const { body } = request;
 
@@ -22,5 +21,4 @@ export default function VaultRoleRoute(
 			return reply.send({ message: 'success', data });
 		},
 	});
-	done();
 }
