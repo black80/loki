@@ -11,7 +11,8 @@
 		"coverage": "jest --coverage --no-cache --verbose --runInBand --detectOpenHandles",
 		"lint": "eslint --ext .ts,.js . --ignore-path .gitignore",
 		"fix": "eslint --ext .ts,.js . --ignore-path .gitignore --fix",
-		"lint-staged": "lint-staged"
+		"lint-staged": "lint-staged",
+		"postinstall": "husky install"
 	},
 	"repository": {
 		"type": "git",
