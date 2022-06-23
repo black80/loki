@@ -23,7 +23,21 @@ export default class RootCa extends BaseModel {
 
 	static override get jsonSchema(): JSONSchema {
 		return {
-			required: ['id'],
+			type: 'object',
+			required: [
+				'requestId',
+				'userId',
+				'leaseId',
+				'renewable',
+				'leaseDuration',
+				'certificate',
+				'expiration',
+				'issuingCa',
+				'privateKey',
+				'privateKeyType',
+				'serialNumber',
+			],
+
 			properties: {
 				id: { type: 'string' },
 				userId: { type: 'integer' },

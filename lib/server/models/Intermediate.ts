@@ -11,7 +11,7 @@ export default class Intermediate extends BaseModel {
 	leaseDuration!: number;
 	certificate!: string;
 	expiration!: number;
-	CSR!: string;
+	Csr!: string;
 	issuingCa!: string;
 	createdAt!: string;
 	updatedAt!: string;
@@ -25,12 +25,26 @@ export default class Intermediate extends BaseModel {
 
 	static override get jsonSchema(): JSONSchema {
 		return {
-			required: ['id'],
+			type: 'object',
+			required: [
+				'requestId',
+				'userId',
+				'Csr',
+				'leaseId',
+				'renewable',
+				'leaseDuration',
+				'expiration',
+				'issuingCa',
+				'privateKey',
+				'privateKeyType',
+				'serialNumber',
+			],
+
 			properties: {
 				id: { type: 'string' },
 				requestId: { type: 'string' },
 				userId: { type: 'integer' },
-				CSR: { type: 'string' },
+				Csr: { type: 'string' },
 				leaseId: { type: 'string' },
 				renewable: { type: 'string' },
 				leaseDuration: { type: 'integer' },

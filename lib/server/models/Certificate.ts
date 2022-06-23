@@ -28,7 +28,21 @@ export default class Certificate extends BaseModel {
 
 	static override get jsonSchema(): JSONSchema {
 		return {
-			required: ['id'],
+			type: 'object',
+			required: [
+				'requestId',
+				'userId',
+				'leaseId',
+				'renewable',
+				'caChain',
+				'certificate',
+				'expiration',
+				'issuingCa',
+				'privateKey',
+				'privateKeyType',
+				'serialNumber',
+			],
+
 			properties: {
 				id: { type: 'string' },
 				requestId: { type: 'string' },

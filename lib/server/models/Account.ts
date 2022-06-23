@@ -18,7 +18,9 @@ export default class Account extends BaseModel {
 
 	static override get jsonSchema(): JSONSchema {
 		return {
-			required: ['id'],
+			type: 'object',
+			required: ['email', 'passwordHash'],
+
 			properties: {
 				id: { type: 'string' },
 				email: { type: 'string' },
