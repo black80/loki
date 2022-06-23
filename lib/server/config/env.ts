@@ -37,13 +37,13 @@ const ENV_SCHEMA = {
 			type: 'string',
 		},
 		VAULT_ADDR: {
-			type: 'string'
+			type: 'string',
 		},
 		VAULT_TOKEN: {
-			type: 'string'
+			type: 'string',
 		},
 		UNSEAL_KEY: {
-			type: 'string'
+			type: 'string',
 		},
 	},
 };

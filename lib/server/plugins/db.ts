@@ -1,9 +1,9 @@
-import { FastifyInstance } from "fastify";
-import fastifyPlugin from "fastify-plugin";
-import Knex from "knex";
-import { Model, knexSnakeCaseMappers } from "objection";
-import { parse } from "pg-connection-string";
-import { models } from "../models";
+import { FastifyInstance } from 'fastify';
+import fastifyPlugin from 'fastify-plugin';
+import Knex from 'knex';
+import { Model, knexSnakeCaseMappers } from 'objection';
+import { parse } from 'pg-connection-string';
+import { models } from '../models';
 
 async function db(fastify: FastifyInstance, options: any) {
 	const connection = parse(fastify.config.DATABASE_URL);
@@ -11,7 +11,7 @@ async function db(fastify: FastifyInstance, options: any) {
 		...options,
 		client: 'pg',
 		connection,
-		searchPath: ['loki'],
+		searchPath: ['public', 'loki'],
 		pool: {
 			min: 2,
 			max: 10,
