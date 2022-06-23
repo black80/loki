@@ -34,9 +34,9 @@ export default class RootCa extends BaseModel {
 				expiration: { type: 'integer' },
 				issuingCa: { type: 'string' },
 				isRevoked: { type: 'boolean', default: false },
-				updatedAt: { type: 'string', format: 'timestamptz' },
-				createdAt: { type: 'string', format: 'timestamptz' },
-				deletedAt: { type: 'string', format: 'timestamptz' },
+				updatedAt: { type: 'string', format: 'date-time' },
+				createdAt: { type: 'string', format: 'date-time' },
+				deletedAt: { type: 'string', format: 'date-time' },
 			},
 		};
 	}

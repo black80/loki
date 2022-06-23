@@ -26,9 +26,9 @@ export default class Account extends BaseModel {
 				status: { type: 'boolean' },
 				isVerified: { type: 'boolean' },
 				isDeleted: { type: 'boolean' },
-				updatedAt: { type: 'string', format: 'timestamptz' },
-				createdAt: { type: 'string', format: 'timestamptz' },
-				deletedAt: { type: 'string', format: 'timestamptz' },
+				updatedAt: { type: 'string', format: 'date-time' },
+				createdAt: { type: 'string', format: 'date-time' },
+				deletedAt: { type: 'string', format: 'date-time' },
 			},
 		};
 	}
