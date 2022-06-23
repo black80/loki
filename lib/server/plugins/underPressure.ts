@@ -12,10 +12,14 @@ async function underPressure(fastify: FastifyInstance) {
 		},
 		healthCheck: async function (fastifyInstance) {
 			try {
+				const dbIsAlive = await fastifyInstance.knex.raw(
+					'select 1+1 as result',
+				);
+
 				await fastifyInstance.cache.set('connection_test', 'true', 'EX', 3);
 				const cacheIsAlive = await fastifyInstance.cache.get('connection_test');
 
-				if (cacheIsAlive) {
+				if (cacheIsAlive && dbIsAlive) {
 					return true;
 				}
 

@@ -1,5 +1,5 @@
-import Account from "./account";
-import Certificate from "./certificate";
-import RootCa from "./rootCA";
-import Intermediate from "./intermediate";
-export const models = { Account, Certificate, RootCa,Intermediate }
+import Account from './Account';
+import Certificate from './Certificate';
+import RootCa from './RootCA';
+import Intermediate from './Intermediate';
+export const models = { Account, Certificate, RootCa, Intermediate };

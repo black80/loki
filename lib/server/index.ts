@@ -3,7 +3,7 @@ import path from 'path';
 import fastifySensible from '@fastify/sensible';
 import { fastifyRequestContextPlugin } from '@fastify/request-context';
 import configPlugin from './plugins/config';
-//import fastifyHelmet from '@fastify/helmet';
+import fastifyHelmet from '@fastify/helmet';
 import cachePlugin from './plugins/cache';
 import fastifyStaticPlugin from '@fastify/static';
 import rateLimiterPlugin from './plugins/rateLimiter';
@@ -11,8 +11,9 @@ import underPressurePlugin from './plugins/underPressure';
 import routes from './routes';
 import ajv from './config/ajv';
 import SERVER_CONFIG from './config/server';
-import dbPlugin from './plugins/db';
+import db from './plugins/db';
 import axios from './plugins/axios';
+import vault from './plugins/vault';
 
 async function bootstrap() {
 	// Initialize the server
@@ -37,22 +38,21 @@ async function bootstrap() {
 	await server.register(configPlugin);
 
 	// Sane default HTTP headers
-	// TODO: use correct typings for swaggerCSP
-	// await server.register(fastifyHelmet, (instance: any) => {
-	// 	return {
-	// 		contentSecurityPolicy: {
-	// 			directives: {
-	// 				...fastifyHelmet.contentSecurityPolicy.getDefaultDirectives(),
-	// 				'form-action': ["'self'"],
-	// 				'img-src': ["'self'", 'data:', 'validator.swagger.io'],
-	// 				'script-src': ["'self'"].concat(instance.swaggerCSP.script),
-	// 				'style-src': ["'self'", 'https:'].concat(instance.swaggerCSP.style),
-	// 			},
-	// 		},
-	// 	};
-	// });
+	await server.register(fastifyHelmet, (instance: any) => {
+		return {
+			contentSecurityPolicy: {
+				directives: {
+					...fastifyHelmet.contentSecurityPolicy.getDefaultDirectives(),
+					'form-action': ["'self'"],
+					'img-src': ["'self'", 'data:', 'validator.swagger.io'],
+					'script-src': ["'self'"].concat(instance.swaggerCSP.script),
+					'style-src': ["'self'", 'https:'].concat(instance.swaggerCSP.style),
+				},
+			},
+		};
+	});
 
-	await server.register(dbPlugin);
+	await server.register(db);
 	// Load Cache client
 	await server.register(cachePlugin);
 
@@ -67,10 +67,15 @@ async function bootstrap() {
 	// Enable rate-limiter
 	await server.register(rateLimiterPlugin);
 
+	// Enable HTTP Client
+	await server.register(axios);
+
+	// Enable Vault plugin
+	await server.register(vault);
+
 	// Register server routes
 	await server.register(routes);
-	await server.register(axios);
-	// await server.register(vault)
+
 	return server;
 }
 

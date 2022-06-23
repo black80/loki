@@ -10,7 +10,7 @@ async function config(fastify: FastifyInstance) {
 		schema: ENV_SCHEMA,
 		confKey: 'env',
 		ajv,
-		dotenv:true
+		dotenv: true,
 	});
 
 	// Add config to server context

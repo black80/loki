@@ -1,39 +1,58 @@
-import { FastifyInstance, FastifyRequest } from "fastify";
-import { vault } from "../../../../../vault";
+import { FastifyInstance, FastifyRequest } from 'fastify';
+import { vault } from '../../../../../vault';
 
+interface IBody {
+	commonName: string;
+	ttl: number;
+	userId: number;
+}
 
+export default async function registerGenerateCertificateRoute(
+	fastify: FastifyInstance,
+	_: {},
+) {
+	fastify.route<{ Body: IBody }>({
+		method: 'POST',
+		url: '/generate',
+		handler: async (request, reply) => {
+			const { commonName, ttl, userId } = request.body;
+			const { Certificate } = fastify.models;
+			const data = (await fastify.vault.postCall(
+				fastify,
+				vault.vaultUrls.certificateGenerationUrl,
+				{ common_name: commonName, ttl },
+			)) as {
+				request_id: string;
+				lease_id: string;
+				renewable: string;
+				lease_duration: number;
+				ca_chain: string;
+				certificate: string;
+				expiration: number;
+				issuing_ca: string;
+				private_key: string;
+				private_key_type: string;
+				serial_number: number;
+			};
 
-export default function generateCertificateRoute(fastify: FastifyInstance, _: {}, done: any) {
-    fastify.route({
-        method: 'POST',
-        url: '/certificate/generate',
-        handler: async (request: FastifyRequest<{ Body: { common_name: string, ttl: number, userId?: number } }>, reply) => {
-            const { common_name, ttl } = request.body;
-            //const { Certificate } = fastify.models;
-            const data = await vault.postCall(fastify, vault.vaultUrls.certificateGenerationUrl, { common_name, ttl });
+			if (!data) return reply.badRequest('somthing wrong happended');
 
-            if (!data) return reply.badRequest('somthing wrong happended')
+			const createdCertificate = await Certificate.query().insertAndFetch({
+				requestId: data.request_id,
+				userId: userId,
+				leaseId: data.lease_id,
+				renewable: data.renewable,
+				leaseDuration: data.lease_duration,
+				caChain: data.ca_chain,
+				certificate: data.certificate,
+				expiration: data.expiration,
+				issuingCa: data.issuing_ca,
+				privateKey: data.private_key,
+				privateKeyType: data.private_key_type,
+				serialNumber: data.serial_number,
+			});
 
-            // const certData = await Certificate.query().insert({
-            //     requestId: data.request_id,
-            //     userId: userId,
-            //     leaseId: data.lease_id,
-            //     renewable: data.renewable,
-            //     leaseDuration: data.lease_duration,
-            //     caChain: data.data.ca_chain,
-            //     certificate: data.data.certificate,
-            //     expiration: data.data.expiration,
-            //     issuingCa: data.data.issuing_ca,
-            //     privateKey: data.data.private_key,
-            //     privateKeyType: data.data.private_key_type,
-            //     serialNumber: data.data.serial_number,
-            // })
-
-            // if (!certData) return reply.badRequest('Please Try again')
-
-            return reply.send({ message: 'success', data })
-
-        }
-    })
-    done()
+			return reply.send({ message: 'success', data });
+		},
+	});
 }

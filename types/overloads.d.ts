@@ -1,8 +1,9 @@
 import { AxiosInstance } from 'axios';
 import { Redis } from 'ioredis';
+import { Knex } from 'knex';
 import { models } from '../lib/server/models';
 import { vaultManager } from '../lib/server/vault';
-
+import { getCall, postCall, VAULT_URIS } from '../lib/server/plugins/vault';
 
 type ENV = 'development' | 'staging' | 'testing' | 'production';
 
@@ -16,22 +17,27 @@ type EnvSchema = {
 	HOST: string;
 	PORT: number;
 	DATABASE_URL: string;
-	VAULT_ADDR: string
-	VAULT_TOKEN: string
-	UNSEAL_KEY: string
+	VAULT_ADDR: string;
+	VAULT_TOKEN: string;
+	UNSEAL_KEY: string;
 };
 
 declare module 'fastify' {
 	interface FastifyInstance {
 		env: EnvSchema;
-		config: EnvSchema;
+		config: {} & EnvSchema;
 		cache: Redis;
 		swaggerCSP: {
 			script: string[];
 			style: string[];
 		};
-		models: typeof models,
-		axios: AxiosInstance,
-		vault: () => Promise<AxiosResponse<any, any>>
+		models: typeof models;
+		knex: Knex<any, unknown[]>;
+		axios: AxiosInstance;
+		vault: {
+			getCall: typeof getCall;
+			postCall: typeof postCall;
+			uris: VAULT_URIS;
+		};
 	}
 }
